@@ -1,0 +1,20 @@
+name: Test
+on:
+  push:
+    branches:
+      - 1.22.0-rc.2
+      - master
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Rust
+      uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: nightly-2020-03-19
+
+    - uses: actions/checkout@master
+    
+    - name: Test
+      run: cargo test
