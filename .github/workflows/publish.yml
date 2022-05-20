@@ -33,8 +33,11 @@ jobs:
     #    DEPLOY_VERSION: ${{ secrets.DEPLOY_VERSION }}  
     - name: Build and release pypi package
       run: pip3 install --user tox && ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
+      env:
+        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
     - name: Build and release docker image
       run: scripts/docker-release.sh
       env:
-        SSH_USER: ${{ secrets.DOCKER_PASSWORD }}
-        SSH_HOST: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
