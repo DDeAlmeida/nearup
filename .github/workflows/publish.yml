@@ -37,7 +37,8 @@ jobs:
     #    PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
     #    PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
     - name: Build and release docker image
-      run: scripts/docker-release.sh
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: scripts/docker-release.sh
+      
