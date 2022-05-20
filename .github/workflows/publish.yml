@@ -16,7 +16,7 @@ jobs:
     - uses: chrislennon/action-aws-cli@v1.1
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-    - name: setup python
+    - name: Setup python
       uses: actions/setup-python@v2
       with:
             python-version: 3.8
@@ -26,16 +26,16 @@ jobs:
     # env:
     #    SSH_USER: ${{ secrets.SSH_USER }}
     #    SSH_HOST: ${{ secrets.SSH_HOST }}
-    ##    SSH_PUB_KEY: ${{ secrets.SSH_PUB_KEY }}
-   #     SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
+    #    SSH_PUB_KEY: ${{ secrets.SSH_PUB_KEY }}
+    #    SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
     #    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     #    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     #    DEPLOY_VERSION: ${{ secrets.DEPLOY_VERSION }}  
-    - name: Build and release pypi package
-      run: pip3 install --user tox && ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
-      env:
-        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+    #- name: Build and release pypi package
+    #  run: pip3 install --user tox && ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
+    #  env:
+    #    PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    #    PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
     - name: Build and release docker image
       run: scripts/docker-release.sh
       env:
