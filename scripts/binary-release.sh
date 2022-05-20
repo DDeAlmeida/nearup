@@ -21,7 +21,7 @@ os=$(uname)
 
 msg=$(git log --no-merges -1 --oneline)
 
-make release
+#make release
 
 # Save network state and config to S3
 mkdir -p outside/metadata
