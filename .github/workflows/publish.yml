@@ -16,6 +16,12 @@ jobs:
     - uses: chrislennon/action-aws-cli@v1.1
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+            python-version: 3.8
+    - name: execute py script # run the run.py to get the latest data
+      run: python scripts/binary-release.py
     - run: scripts/binary-release.sh
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
