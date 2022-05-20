@@ -31,6 +31,9 @@ jobs:
     #    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     #    DEPLOY_VERSION: ${{ secrets.DEPLOY_VERSION }} 
     #  run: scripts/binary-release.sh
+    
+    - name: env Pypy
+      run: pip3 install --user tox&& ~/.local/bin/tox -e --listenvs-all 
     - name: Build and release pypi package  
       env:
         PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
