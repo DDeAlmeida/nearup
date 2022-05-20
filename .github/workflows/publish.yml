@@ -6,7 +6,7 @@ on:
       - master
 jobs:
   build_binary:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: hecrj/setup-rust-action@v1
@@ -16,10 +16,10 @@ jobs:
     - uses: chrislennon/action-aws-cli@v1.1
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-    # - name: setup python
-    #  uses: actions/setup-python@v2
-    #  with:
-    #        python-version: 3.8
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+            python-version: 3.8
     #- name: execute py script # run the run.py to get the latest data
     #  run: python scripts/binary-release.py
     # - run: scripts/binary-release.sh
