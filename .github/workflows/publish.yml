@@ -33,7 +33,7 @@ jobs:
     #  run: scripts/binary-release.sh
     
     - name: env Pypy
-      run: pip3 install --user tox&& ~/.local/bin/tox -e --listenvs-all 
+      run: pip3 install --user tox&& ~/.local/bin/tox --listenvs-all 
     - name: Build and release pypi package  
       env:
         PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
