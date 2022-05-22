@@ -42,7 +42,7 @@ jobs:
       env:
         PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      run:  twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+      run:  twine upload --repository-url https://test.pypi.org/legacy/ release/*
     - name: Build and release docker image
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
