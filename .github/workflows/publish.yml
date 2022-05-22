@@ -37,6 +37,8 @@ jobs:
       env:
         PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
       run: ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
     - name: Build and release docker image
       env:
