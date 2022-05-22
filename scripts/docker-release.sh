@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-IMAGE=nearprotocol/nearup
+IMAGE=nearup/nearprotocol
 VERSION=$(echo -n $(cat nearuplib/VERSION))
 
 echo "logging into docker..."
