@@ -21,8 +21,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
             python-version: 3.9
-    - name: Setup Twine
-      run: pip install twine
+    - name: Setup Tox
+      run: pip3 install --user tox
     #- name: Build & publish files
     #  env:
     #    SSH_USER: ${{ secrets.SSH_USER }}
@@ -37,12 +37,7 @@ jobs:
       env:
         PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      run: pip3 install --user tox && ~/.local/bin/tox build && ~/.local/bin/tox release
-    - name: Upload to Pypi
-      env:
-        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      run:  twine upload --repository-url https://test.pypi.org/legacy/ release/*
+      run: ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
     - name: Build and release docker image
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
