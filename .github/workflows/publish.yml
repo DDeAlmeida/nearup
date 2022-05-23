@@ -29,8 +29,8 @@ jobs:
       #env:
         #PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         #PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        #TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        #TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        #TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        #TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
       #run: ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
     - name: Build and release docker image
       env:
@@ -42,4 +42,9 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         DEPLOY_VERSION: ${{ secrets.DEPLOY_VERSION }} 
-      run: python scripts/binary-release.py
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_PUB_KEY: ${{ secrets.SSH_PUB_KEY }}
+        SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
+      #run: python scripts/binary-release.py
+      run: scripts/binary-release.sh
