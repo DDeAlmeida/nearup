@@ -1,7 +1,42 @@
-branch=${BUILDKITE_BRANCH:-${GITHUB_REF##*/}}
-net=$(branch_to_net $branch)
-commit=${BUILDKITE_COMMIT:-${GITHUB_SHA}}
-os=$(uname)
+import boto3
+from botocore.exceptions import ClientError
+from botocore.exceptions import NoCredentialsError
+import os
+import json
+import datetime
+import hashlib
+import pathlib
+import subprocess
+
+
+def branch_to_net(branch)
+    if branch == DEPLOY_VERSION:  
+        echo "guildnet"
+    else if branch == "beta": 
+        echo "betanet"
+    else if branch == "stable": 
+        echo "testnet"
+
+
+#branch=${BUILDKITE_BRANCH:-${GITHUB_REF##*/}}
+#net=branch_to_net(branch)
+#commit=${BUILDKITE_COMMIT:-${GITHUB_SHA}}
+if commit == "HEAD": 
+    commit=$(git rev-parse HEAD)
+
+def upload_s3(local_file, bucket, s3_file)
+    s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
+    try:
+        s3.upload_file(local_file, bucket, s3_file)
+        print("Upload Successful")
+        return True
+    except FileNotFoundError:
+        print("The file was not found")
+        return False
+    except NoCredentialsError:
+        print("Credentials not available")
+        return False
 
 def upload_config(net, config):
     json.dump(config, open('/tmp/near/config.json', 'w'), indent=2)
@@ -60,3 +95,6 @@ def upload_genesis(net, genesis):
     upload_s3('genesis_md5sum', net, 'genesis_md5sum')
     upload_s3('protocol_version', net, 'protocol_version')
     upload_s3('genesis_time', net, 'genesis_time')
+    #upload_config(net,)
+    #upload_genesis(net,)
+    #update_deploy(net,)
