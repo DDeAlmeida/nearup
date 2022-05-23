@@ -37,9 +37,6 @@ scp -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST:~/.near/config.json outside/
 
 
 if [[ $msg == *"hard-fork"* ]]; then
-    #accessing state-viewer more directly
-    #scp -o StrictHostKeyChecking=no target/release/state-viewer $SSH_USER@$SSH_HOST:~/
-    #ssh $SSH_USER@$SSH_HOST "~/.nearup/nearup stop && ./state-viewer --home ~/.near/${net}/ dump_state && ~/.nearup/nearup ${net} --nodocker"
     ssh $SSH_USER@$SSH_HOST "source ~/.cargo/env && cd ~/nearcore && ~/.local/bin/nearup stop && cargo run -p state-viewer -- --home ~/.near/${net} dump_state" 
     scp -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST:~/.near/${net}/output.json outside/genesis.json
 else
@@ -56,22 +53,15 @@ echo $DEPLOY_VERSION > outside/metadata/latest_release
 cp outside/genesis.json outside/metadata/
 cp outside/config.json outside/metadata/
 
-function upload_binary {
-    aws s3 cp --acl public-read target/release/$1 s3://build.openshards.io/nearcore/${os}/${branch}/$1
-    aws s3 cp --acl public-read target/release/$1 s3://build.openshards.io/nearcore/${os}/${commit}/$1
-}
 
 function upload_genesis_tools {
-    aws s3 cp --acl public-read genesis-tools/$1 s3://build.openshards.io/nearcore/${os}/${branch}/$1
-    aws s3 cp --acl public-read genesis-tools/$1 s3://build.openshards.io/nearcore/${os}/${commit}/$1
+    aws s3 cp --acl public-read genesis-tools/$1 s3://build.openshards.io/nearup/${os}/${branch}/$1
+    aws s3 cp --acl public-read genesis-tools/$1 s3://build.openshards.io/nearup/${os}/${commit}/$1
 }
 
 function upload_metadata {
-    aws s3 cp --acl public-read outside/metadata/$1 s3://build.openshards.io/nearcore-deploy/${net}/$1
+    aws s3 cp --acl public-read outside/metadata/$1 s3://build.openshards.io/nearup/${net}/$1
 }
-
-#upload_binary near
-#upload_binary state-viewer
 
 upload_metadata latest_deploy_at
 upload_metadata latest_release
