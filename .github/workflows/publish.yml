@@ -25,8 +25,6 @@ jobs:
       run: pip3 install --user tox
     - name: Setup boto3
       run: pip install boto3
-    - name: Setup git
-      run: pip install git
     #- name: Build and release pypi package  
       #env:
         #PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
