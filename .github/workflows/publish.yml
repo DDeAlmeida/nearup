@@ -23,12 +23,12 @@ jobs:
             python-version: 3.9
     - name: Setup Tox
       run: pip3 install --user tox
-    - name: Build and release pypi package  
-      env:
-        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+    #- name: Build and release pypi package  
+      #env:
+        #PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        #PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        #TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        #TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
       #run: ~/.local/bin/tox -e build && ~/.local/bin/tox -e release
     - name: Build and release docker image
       env:
