@@ -10,7 +10,7 @@ import subprocess
 
 
 def branch_to_net(branch):
-    if branch != DEPLOY_VERSION:
+    if branch != os.environ['DEPLOY_VERSION']:
         return "betanet"
     elif branch == "beta":
         return "guildnet"
@@ -25,7 +25,7 @@ if commit == "HEAD":
     commit=subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip()
 
 def upload_s3(local_file, bucket, s3_file):
-    s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    s3 = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
 
     try:
         s3.upload_file(local_file, bucket, s3_file)
