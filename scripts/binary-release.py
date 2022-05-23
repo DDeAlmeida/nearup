@@ -7,7 +7,6 @@ import datetime
 import hashlib
 import pathlib
 import subprocess
-import git
 
 
 def branch_to_net(branch):
