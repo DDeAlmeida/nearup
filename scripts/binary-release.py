@@ -19,8 +19,8 @@ def branch_to_net(branch):
 
 
 branch=os.getenv('GITHUB_REF')
-print(f'DEPLOY_VERSION: os.environ['DEPLOY_VERSION'].')
-print(f'GITHUB_REF: os.environ['GITHUB_REF'].')
+print(f'DEPLOY_VERSION: {os.environ['DEPLOY_VERSION']}.')
+print(f'GITHUB_REF: {os.environ['GITHUB_REF']}.')
 print(f'branch: {branch}.')
 net=branch_to_net(branch)
 commit=os.getenv('GITHUB_SHA')
