@@ -7,24 +7,25 @@ import datetime
 import hashlib
 import pathlib
 import subprocess
+import git
 
 
-def branch_to_net(branch)
-    if branch == DEPLOY_VERSION:  
-        echo "guildnet"
-    else if branch == "beta": 
-        echo "betanet"
-    else if branch == "stable": 
-        echo "testnet"
+def branch_to_net(branch):
+    if branch != DEPLOY_VERSION:
+        return "betanet"
+    elif branch == "beta":
+        return "guildnet"
+    elif branch == "stable":
+        return "testnet"
 
 
-#branch=${BUILDKITE_BRANCH:-${GITHUB_REF##*/}}
-#net=branch_to_net(branch)
-#commit=${BUILDKITE_COMMIT:-${GITHUB_SHA}}
-if commit == "HEAD": 
-    commit=$(git rev-parse HEAD)
+branch=os.getenv('GITHUB_REF')
+net=branch_to_net(branch)
+commit=os.getenv('GITHUB_SHA')
+if commit == "HEAD":
+    commit=subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip()
 
-def upload_s3(local_file, bucket, s3_file)
+def upload_s3(local_file, bucket, s3_file):
     s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
     try:
