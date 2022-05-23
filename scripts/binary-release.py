@@ -23,8 +23,16 @@ net=branch_to_net(branch)
 commit=os.getenv('GITHUB_SHA')
 if commit == "HEAD":
     commit=subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip()
+    
+    
+print("DEBUG")
+print(f'branch: {branch}.')
+print(f'net: {net}.')
+print(f'commit: {commit}.')
+
 
 def upload_s3(local_file, bucket, s3_file):
+    print("GO upload_s3")
     s3 = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
 
     try:
@@ -90,10 +98,12 @@ def upload_genesis(net, genesis):
         )
         input('Press enter once you’re done')
 
-    s3 = boto3.resource('s3')
-
+    #s3 = boto3.resource('s3')
+print("GO genesis_md5sum")
     upload_s3('genesis_md5sum', net, 'genesis_md5sum')
+print("GO protocol_version")
     upload_s3('protocol_version', net, 'protocol_version')
+print("GO genesis_time")
     upload_s3('genesis_time', net, 'genesis_time')
     #upload_config(net,)
     #upload_genesis(net,)
