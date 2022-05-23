@@ -23,6 +23,8 @@ jobs:
             python-version: 3.9
     - name: Setup Tox
       run: pip3 install --user tox
+    - name: Setup boto3
+      run: pip install boto3
     #- name: Build and release pypi package  
       #env:
         #PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
