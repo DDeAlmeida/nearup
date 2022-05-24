@@ -12,7 +12,10 @@ function branch_to_net {
 }
 
 branch=${BUILDKITE_BRANCH:-${GITHUB_REF##*/}}
+echo "DEPLOY_VERSION: $DEPLOY_VERSION"
+echo "branch: $branch"
 net=$(branch_to_net $branch)
+echo "net: $net"
 commit=${BUILDKITE_COMMIT:-${GITHUB_SHA}}
 if [[ ${commit} == "HEAD" ]]; then
     commit=$(git rev-parse HEAD)
