@@ -4,18 +4,13 @@ set -euo pipefail
 function branch_to_net {
     if [ "$1" == "$DEPLOY_VERSION" ]; then 
         echo "guildnet"
-    elif [ "$1" == "beta" ]; then
-        echo "betanet"
-    elif [ "$1" == "stable" ]; then
+    else
         echo "testnet"
     fi
 }
 
 branch=${BUILDKITE_BRANCH:-${GITHUB_REF##*/}}
-echo "DEPLOY_VERSION: $DEPLOY_VERSION"
-echo "branch: $branch"
 net=$(branch_to_net $branch)
-echo "net: $net"
 commit=${BUILDKITE_COMMIT:-${GITHUB_SHA}}
 if [[ ${commit} == "HEAD" ]]; then
     commit=$(git rev-parse HEAD)
