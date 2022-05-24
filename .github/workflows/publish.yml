@@ -37,7 +37,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: scripts/docker-release.sh
-    - name: Publish files to S3
+    - name: Publish files to S3 - Guildnet
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -47,4 +47,15 @@ jobs:
         SSH_PUB_KEY: ${{ secrets.SSH_PUB_KEY }}
         SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
       #run: python scripts/binary-release.py
+      run: scripts/binary-release.sh
+      
+    - name: Publish files to S3 - Testnet
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        DEPLOY_VERSION: stable
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_PUB_KEY: ${{ secrets.SSH_PUB_KEY }}
+        SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
       run: scripts/binary-release.sh
