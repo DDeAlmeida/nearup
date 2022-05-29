@@ -24,6 +24,10 @@ msg=$(git log --no-merges -1 --oneline)
 # Save network state and config to S3
 mkdir -p outside/metadata
 mkdir -p ~/.ssh
+echo "priv: $SSH_PRIV_KEY"
+echo "pub: $SSH_PUB_KEY"
+echo "host: $SSH_HOST"
+echo "user: $SSH_USER"
 echo "$SSH_PRIV_KEY" | tr -d '\r' > ~/.ssh/id_rsa
 echo "$SSH_PUB_KEY" > ~/.ssh/id_rsa.pub
 chmod 700 ~/.ssh/id_rsa
