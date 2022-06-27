@@ -1,4 +1,4 @@
-name: Fetch Brrr Stats
+name: Check latest version from nearcore & AutoPublish NearUp
 
 on:
   workflow_dispatch:
