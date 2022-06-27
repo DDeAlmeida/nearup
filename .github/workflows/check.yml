@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Fetch And Update        
-        run: scripts/checkAndUpdate.sh
+        run: scripts/CheckAndUpdate.sh
           
           
           
