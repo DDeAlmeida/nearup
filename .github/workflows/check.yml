@@ -1,0 +1,16 @@
+name: Fetch Brrr Stats
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '*/30 * * * *'
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch release version        
+        run: |
+          curl -sL https://api.github.com/repos/near/nearcore/releases/latest | \
+          jq -r ".tag_name" > release-versions/near-nearcore-latest.txt
