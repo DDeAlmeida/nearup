@@ -13,4 +13,4 @@ jobs:
       - name: Fetch release version        
         run: |
           curl -sL https://api.github.com/repos/near/nearcore/releases/latest | \
-          jq -r ".tag_name" > release-versions/near-nearcore-latest.txt
+          jq -r ".tag_name" > near-nearcore-latest.txt
