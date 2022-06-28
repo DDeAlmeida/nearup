@@ -23,6 +23,7 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         uses: EndBug/add-and-commit@v9 
         with: 
+          push: true
           add: 'nearuplib/VERSION --force'
           message: "Bump version ${{steps.get_version.outputs.version}}"
           
