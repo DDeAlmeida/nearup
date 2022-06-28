@@ -15,9 +15,7 @@ jobs:
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
       - uses: EndBug/add-and-commit@v9 
         with: 
-          author_name: "Nearup Auto"
-          author_email: "davletuner@protonmail.com"
-          add: 'near-nearcore-latest.txt --force'
+          add: 'VERSION --force'
           message: "AutoUpdated"
           
           
