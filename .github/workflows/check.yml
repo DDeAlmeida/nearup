@@ -21,7 +21,7 @@ jobs:
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       - name: Commit latest release version
         env: 
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
         if: steps.git-check.outputs.modified == 'true'
         uses: EndBug/add-and-commit@v9 
         with: 
