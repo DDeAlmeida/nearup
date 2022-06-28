@@ -14,7 +14,7 @@ jobs:
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
       - name: Fetch And Update        
-        run: echo ::set-env name=TEST::$(curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name")  > ${{ VERSION }}
+        run: echo ::set-env name=TEST::$(curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name")
       - name: Set env
         run: echo "GITHUB_SHA_SHORT=$(curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name")" >> $GITHUB_ENV
       - name: Test
