@@ -26,23 +26,15 @@ jobs:
         #  passphrase: ${{ secrets.PASSPHRASE }}
         #  git_user_signingkey: true
          # git_commit_gpgsign: true
-      #- name: Commit latest release version
-      #  env: 
-      #   GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
-      #  if: steps.git-check.outputs.modified == 'true'
-      #  uses: EndBug/add-and-commit@v9 
-      #  with: 
-       #   add: 'nearuplib/VERSION --force'
-       #   message: "Bump version ${{steps.get_version.outputs.version}}"
       - name: Commit latest release version
+        env: 
+         GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
         if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --global user.name 'GitHub'
-          git config --global user.email 'noreply@github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.REPO_SCOPED_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git checkout "${GITHUB_REF:11}"
-          git commit -am "New release version"
-          git push
+        uses: EndBug/add-and-commit@v9 
+        with: 
+          add: 'nearuplib/VERSION --force'
+          message: "Bump version ${{steps.get_version.outputs.version}}"
+
           
           
           
