@@ -11,10 +11,8 @@ jobs:
     environment: nearup
     steps:
       - uses: actions/checkout@v3
-      - name: Add right       
-        run: chmod +x scripts/CheckAndUpdate.sh
       - name: Fetch And Update        
-        run: bash scripts/CheckAndUpdate.sh
+        run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > near-nearcore-latest.txt
       - uses: EndBug/add-and-commit@v9 
         with: 
           author_name: "Nearup Auto"
