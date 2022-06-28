@@ -11,8 +11,10 @@ jobs:
     environment: nearup
     steps:
       - uses: actions/checkout@v3
-      - name: Fetch And Update        
+      - name: Add right       
         run: chmod +x scripts/CheckAndUpdate.sh
+      - name: Fetch And Update        
+        run: bash scripts/CheckAndUpdate.sh
           
           
           
