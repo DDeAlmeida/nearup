@@ -9,14 +9,18 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     environment: nearup
+    env:
+       Version: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name"
     steps:
       - uses: actions/checkout@v3
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
+      - name: Fetch And Update        
+        run: echo "$version"
       - uses: EndBug/add-and-commit@v9 
         with: 
           add: 'VERSION --force'
-          message: "AutoUpdated"
+          message: "Bump version $version"
           
           
           
