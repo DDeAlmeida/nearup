@@ -16,11 +16,11 @@ jobs:
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
       - name: Fetch And Update        
-        run: echo "$version"
+        run: echo "$Version"
       - uses: EndBug/add-and-commit@v9 
         with: 
           add: 'VERSION --force'
-          message: "Bump version $version"
+          message: "Bump version $Version"
           
           
           
