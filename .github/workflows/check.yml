@@ -15,6 +15,12 @@ jobs:
         run: chmod +x scripts/CheckAndUpdate.sh
       - name: Fetch And Update        
         run: bash scripts/CheckAndUpdate.sh
+      - uses: EndBug/add-and-commit@v9 
+        with: 
+          author_name: "Nearup Auto"
+          author_email: "davletuner@protonmail.com"
+          add: 'near-nearcore-latest.txt --force'
+          message: "AutoUpdated"
           
           
           
