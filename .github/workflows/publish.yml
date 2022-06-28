@@ -2,8 +2,8 @@
 name: Build and Publish
 on:
   push:
-    paths:
-      - 'nearuplib/*'
+   branches:
+      - master
 jobs:
   build_binary:
     runs-on: ubuntu-latest
