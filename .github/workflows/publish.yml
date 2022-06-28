@@ -18,6 +18,8 @@ jobs:
         rust-version: nightly-2020-03-19
         
     - uses: actions/checkout@v3
+      with:
+       token: ${{ secrets.MYGITHUB_TOKEN }}
     
     - uses: chrislennon/action-aws-cli@v1.1
       env:
