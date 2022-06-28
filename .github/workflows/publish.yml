@@ -3,7 +3,7 @@ name: Build and Publish
 on:
   push:
     paths:
-      - 'nearuplib/VERSION'
+      - 'nearuplib/*'
 jobs:
   build_binary:
     runs-on: ubuntu-latest
