@@ -11,6 +11,8 @@ jobs:
     environment: nearup
     steps:
       - uses: actions/checkout@v3
+        with:
+         token: ${{ secrets.MYGITHUB_TOKEN }}
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
       - name: Get Version
