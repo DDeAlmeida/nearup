@@ -19,11 +19,6 @@ jobs:
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-      - uses: iwishiwasaneagle/git-user-random-gpg@v1
-        with:
-          email: "davletuner@protonmail.com"
-          name:  "DDeAlmeida"
-        
       #- name: Import GPG key
        # uses: crazy-max/ghaction-import-gpg@v5
        # with:
@@ -31,14 +26,23 @@ jobs:
         #  passphrase: ${{ secrets.PASSPHRASE }}
         #  git_user_signingkey: true
          # git_commit_gpgsign: true
+      #- name: Commit latest release version
+      #  env: 
+      #   GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
+      #  if: steps.git-check.outputs.modified == 'true'
+      #  uses: EndBug/add-and-commit@v9 
+      #  with: 
+       #   add: 'nearuplib/VERSION --force'
+       #   message: "Bump version ${{steps.get_version.outputs.version}}"
       - name: Commit latest release version
-        env: 
-         GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
         if: steps.git-check.outputs.modified == 'true'
-        uses: EndBug/add-and-commit@v9 
-        with: 
-          add: 'nearuplib/VERSION --force'
-          message: "Bump version ${{steps.get_version.outputs.version}}"
+        run: |
+          git config --global user.name 'GitHub'
+          git config --global user.email 'noreply@github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.REPO_SCOPED_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git checkout "${GITHUB_REF:11}"
+          git commit -am "New release version"
+          git push
           
           
           
