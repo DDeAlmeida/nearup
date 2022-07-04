@@ -16,7 +16,7 @@ jobs:
       - name: Test1
         run: chmod +x scripts/updateVersion.sh 
       - name: Test
-        run: scripts/updateVersion.sh nearuplib/VERSION feature > nearuplib/VERSION
+        run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
       - name: Get Version
