@@ -13,6 +13,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
          token: ${{ secrets.MYGITHUB_TOKEN }}
+         
+      - name: Test
+        run: scripts/updateVersion.sh nearuplib/VERSION > nearuplib/VERSION
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases/latest | jq -r ".tag_name" > nearuplib/VERSION
       - name: Get Version
