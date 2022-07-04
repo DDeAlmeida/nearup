@@ -5,6 +5,8 @@ major=0
 minor=0
 build=0
 
+echo "Version $1"
+
 # break down the version number into it's components
 regex="([0-9]+).([0-9]+).([0-9]+)"
 if [[ $version =~ $regex ]]; then
@@ -25,6 +27,6 @@ else
   echo "usage: ./version.sh version_number [major/feature/bug]"
   exit -1
 fi
-
+echo "Fin"
 # echo the new version number
 echo "${major}.${minor}.${build}"
