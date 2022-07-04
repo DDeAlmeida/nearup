@@ -11,6 +11,8 @@ jobs:
     environment: nearup
     steps:
       - uses: actions/checkout@v3
+        with:
+         token: ${{ secrets.MYGITHUB_TOKEN }}
       - name: Test1
         run: chmod +x scripts/updateVersion.sh 
       - name: Test
