@@ -25,19 +25,17 @@ jobs:
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
 		
       - name: Get Type
-	if: steps.git-check.outputs.modified == 'true'
-	id: get_version
-	run: echo ::set-output name=prerelease::$(curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .prerelease')
+        if: steps.git-check.outputs.modified == 'true'
+        id: get_modified
+        run: echo ::set-output name=prerelease::$(curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .prerelease')
       
       - name: Prerelease
-        if: steps.git-check.outputs.modified == 'true' && steps.git-get_version.outputs.prerelease == 'true'
-        id: get_version
-	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION
+        if: steps.git-check.outputs.modified == 'true' && steps.git-get_modified.outputs.prerelease == 'true'
+        run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION
 		
       - name: Not a Prerelease
-        if: steps.git-check.outputs.modified == 'true' && steps.git-get_version.outputs.prerelease == 'false'
-        id: get_version
-	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION  
+        if: steps.git-check.outputs.modified == 'true' && steps.git-get_modified.outputs.prerelease == 'false'
+        run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION  
 	
       - name: Get Version
         id: get_version
