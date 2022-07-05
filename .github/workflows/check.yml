@@ -29,15 +29,15 @@ jobs:
 	id: get_version
 	run: echo ::set-output name=prerelease::$(curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .prerelease')
       
-      - name: SetType
+      - name: Prerelease
         if: steps.git-check.outputs.modified == 'true' && steps.git-get_version.outputs.prerelease == 'true'
         id: get_version2
 	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION
 		
-      - name: Set Type
+      - name: Not a Prerelease
         if: steps.git-check.outputs.modified == 'true' && steps.git-get_version.outputs.prerelease == 'false'
         id: get_version
-	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION      
+	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION      
 	  
       - name: Commit latest release version
         env: 
