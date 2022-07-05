@@ -39,7 +39,7 @@ jobs:
 	
       - name: Get Version
         id: get_version
-        run: echo ::set-output name=version::$(cat nearuplib/VERSION )
+        run: echo ::set-output name=version::$(cat nearuplib/VERSION)
 	  
       - name: Commit latest release version
         env: 
