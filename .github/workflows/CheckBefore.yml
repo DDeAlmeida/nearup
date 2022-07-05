@@ -13,34 +13,26 @@ jobs:
       - uses: actions/checkout@v3
         with:
          token: ${{ secrets.MYGITHUB_TOKEN }}
-		 
       - name: Update script right
         run: chmod +x scripts/updateVersion.sh 
-		
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .tag_name' > nearuplib/latestCheckedVersion.txt
-		
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-		
       - name: Get Type
         if: steps.git-check.outputs.modified == 'true'
         id: get_modified
         run: echo ::set-output name=prerelease::$(curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .prerelease')
-      
       - name: Prerelease
         if: steps.git-check.outputs.modified == 'true' && steps.git-get_modified.outputs.prerelease == 'true'
         run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION
-		
       - name: Not a Prerelease
         if: steps.git-check.outputs.modified == 'true' && steps.git-get_modified.outputs.prerelease == 'false'
         run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION  
-	
       - name: Get Version
         id: get_version
         run: echo ::set-output name=version::$(cat nearuplib/VERSION)
-	  
       - name: Commit latest release version
         env: 
          GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
