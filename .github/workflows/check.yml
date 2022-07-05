@@ -31,13 +31,17 @@ jobs:
       
       - name: Prerelease
         if: steps.git-check.outputs.modified == 'true' && steps.git-get_version.outputs.prerelease == 'true'
-        id: get_version2
+        id: get_version
 	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION
 		
       - name: Not a Prerelease
         if: steps.git-check.outputs.modified == 'true' && steps.git-get_version.outputs.prerelease == 'false'
         id: get_version
-	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION      
+	run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION  
+	
+      - name: Get Version
+        id: get_version
+        run: echo ::set-output name=version::$(cat nearuplib/VERSION )
 	  
       - name: Commit latest release version
         env: 
