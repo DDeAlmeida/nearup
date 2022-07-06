@@ -14,7 +14,7 @@ jobs:
         with:
          token: ${{ secrets.MYGITHUB_TOKEN }}
       - name: Update script right
-        run: chmod +x scripts/updateVersion.sh && chmod +x nearuplib/latestCheckedVersion.txt
+        run: chmod +x scripts/updateVersion.sh
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .tag_name' > nearuplib/latestCheckedVersion.txt
       - name: Check for modified files
@@ -41,3 +41,13 @@ jobs:
         with: 
           add: 'nearuplib/VERSION --force'
           message: "Bump version ${{steps.get_version.outputs.version}}"
+      - name: Commit latest checked version
+        env: 
+         GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
+        if: steps.git-check.outputs.modified == 'true'
+        uses: EndBug/add-and-commit@v9 
+        with: 
+          add: 'nearuplib/latestCheckedVersion.txt --force'
+          message: "Bump version ${{steps.get_version.outputs.version}}"
+          
+          
