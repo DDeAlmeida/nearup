@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version= cat $1
+version="$1"
 major=0
 minor=0
 build=0
