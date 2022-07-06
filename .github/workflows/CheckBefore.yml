@@ -14,7 +14,7 @@ jobs:
         with:
          token: ${{ secrets.MYGITHUB_TOKEN }}
       - name: Update script right
-        run: chmod +x scripts/updateVersion.sh
+        run: chmod +x scripts/updateVersion.sh && chmod +x nearuplib/latestCheckedVersion.txt
       - name: Fetch And Update        
         run: curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .tag_name' > nearuplib/latestCheckedVersion.txt
       - name: Check for modified files
