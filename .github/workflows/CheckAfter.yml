@@ -1,4 +1,4 @@
-name: Check latest version from nearcore & AutoPublish NearUp
+name: Check After
 
 on:
   push:
