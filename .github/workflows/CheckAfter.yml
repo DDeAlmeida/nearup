@@ -1,0 +1,38 @@
+name: Check latest version from nearcore & AutoPublish NearUp
+
+on:
+  push:
+    paths:
+    - 'nearuplib/latestCheckedVersion.txt'
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    environment: nearup
+    steps:
+      - uses: actions/checkout@v3
+        with:
+         token: ${{ secrets.MYGITHUB_TOKEN }}
+      - name: Update script right
+        run: chmod +x scripts/updateVersion.sh
+      - name: Get Type
+        id: get_modified
+        run: echo ::set-output name=prerelease::$(curl -sL https://api.github.com/repos/near/nearcore/releases | jq -r 'first | .prerelease')
+      - name: Prerelease
+        if: steps.get_modified.outputs.prerelease == 'true'
+        run: scripts/updateVersion.sh $(cat nearuplib/VERSION) bug > nearuplib/VERSION
+      - name: Not a Prerelease
+        if: steps.get_modified.outputs.prerelease == 'false'
+        run: scripts/updateVersion.sh $(cat nearuplib/VERSION) feature > nearuplib/VERSION  
+      - name: Get Version
+        id: get_version
+        run: echo ::set-output name=version::$(cat nearuplib/VERSION)
+      - name: Commit latest checked version
+        env: 
+         GITHUB_TOKEN: ${{ secrets.MYGITHUB_TOKEN }}
+        uses: EndBug/add-and-commit@v9 
+        with: 
+          add: 'nearuplib/VERSION --force'
+          message: "Bump version ${{steps.get_version.outputs.version}}"
+          
+          
